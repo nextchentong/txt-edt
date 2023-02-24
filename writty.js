@@ -76,11 +76,13 @@ function getChangeTextContent (oldFile, newFile) {
     console.log(newFile)
     const oldUpdateList = []
     const newUpdateList = []
+    const IndexList = []
     oldFile.forEach((item, index) => {
         newFile.forEach((item2, index2) => {
             if (index === index2) {
                 if (item2 !== item) {
                     console.log(index)
+                    IndexList.push(index)
                     oldUpdateList.push(oldFile[index])
                     newUpdateList.push(newFile[index])
                     // console.log(index2)
@@ -93,7 +95,8 @@ function getChangeTextContent (oldFile, newFile) {
     console.log(oldUpdateList)
     console.log("新修改:")
     console.log(newUpdateList)
-
+    console.log("下标:")
+    console.log(IndexList)
     if (newFile.length > oldFile.length) {
         console.log("新增")
         console.log([...newFile.slice(oldFile.length, newFile.length)])
@@ -101,12 +104,12 @@ function getChangeTextContent (oldFile, newFile) {
     else if (newFile.length < oldFile.length) {
         console.log("删除")
         console.log([...newFile.slice(oldFile.length, newFile.length - 1)])
-
     }
     else {
         console.log("不变")
         console.log([...newFile.slice(oldFile.length, newFile.length - 1)])
     }
+
 }
 
 // Insert Image //
@@ -257,7 +260,8 @@ function downloadContent (type) {
     if (type === 'txt') {
         console.log(document.getElementById('content').innerHTML.replace(new RegExp("<br>", 'g'), "\n"))
         editorContent = document.getElementById('content').innerHTML.replace(new RegExp("<br>", 'g'), "\n")
-        let newFileContentText = document.getElementById('content').innerHTML.split("<br>")
+        const list = document.getElementById('content').innerHTML.split("<br>")
+        let newFileContentText = list.slice(0, list.length - 1)
         getChangeTextContent(localStorage.getItem("oldFileContentText").split(","), newFileContentText)
         return
     } else if (type === 'md') {
