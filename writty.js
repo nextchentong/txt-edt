@@ -13,6 +13,7 @@ document.querySelectorAll('[data-edit]').forEach(btn =>
 )
 
 function edit (ev) {
+    console.log(ev.target)
     ev.preventDefault()
     const cmd_val = this.getAttribute('data-edit').split(':')
     document.execCommand(cmd_val[0], false, cmd_val[1])
@@ -261,9 +262,9 @@ function downloadContent (type) {
         console.log(document.getElementById('content').innerHTML.replace(new RegExp("<br>", 'g'), "\n"))
         editorContent = document.getElementById('content').innerHTML.replace(new RegExp("<br>", 'g'), "\n")
         const list = document.getElementById('content').innerHTML.split("<br>")
-        let newFileContentText = list.slice(0, list.length - 1)
-        getChangeTextContent(localStorage.getItem("oldFileContentText").split(","), newFileContentText)
-        return
+        // let newFileContentText = list.slice(0, list.length - 1)
+        // getChangeTextContent(localStorage.getItem("oldFileContentText").split(","), newFileContentText)
+        // return
     } else if (type === 'md') {
         const turndownService = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced', emDelimiter: '*' })
         editorContent = turndownService.turndown(document.getElementById('content').innerHTML)
